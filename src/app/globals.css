@@ -1,16 +1,17 @@
 @import "tailwindcss";
 
-:root {
-  --primary: #0d4d4d;
-  --secondary: #097d7d;
-  --background: #f0f7f7;
-  --foreground: #011627;
-  --border-muted: #e0eeee;
+@theme {
+  --color-primary: #0d4d4d;
+  --color-secondary: #097d7d;
+  --color-brand-bg: #f0f7f7;
+  --color-brand-text: #011627;
+  --color-border-muted: #e0eeee;
+  --color-nav-text: #445555;
 }
 
 @layer base {
   body {
-    @apply bg-[var(--background)] text-[var(--foreground)] antialiased;
+    @apply bg-brand-bg text-[var(--foreground)] antialiased;
     margin: 0;
     padding: 0;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
@@ -18,13 +19,16 @@
 }
 
 @layer components {
-  .section-container {
-    @apply max-w-7xl mx-auto px-6 md:px-8 py-16 lg:py-24;
-  }
-
   .btn-primary {
     @apply bg-[var(--primary)] text-white px-8 py-4 rounded-2xl font-bold 
-           hover:bg-[#083636] transition-all active:scale-95 shadow-lg shadow-[#0D4D4D]/20;
+           hover:bg-[#083636] transition-all active:scale-95 shadow-lg shadow-primary/20;
+  }
+  .custom-header {
+    @apply sticky top-0 z-50 w-full bg-white/90 backdrop-blur-xl border-b border-border-muted shadow-lg;
+  }
+
+  .find-button {
+    @apply w-full md:w-auto bg-primary text-white px-10 py-3 rounded-2xl font-bold cursor-pointer transition-all active:scale-95;
   }
 }
 
@@ -40,6 +44,10 @@
   @apply flex items-center justify-center;
 }
 
+@utility custom-transition {
+  @apply transition-transform duration-300;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -47,6 +55,6 @@
   background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--secondary);
+  background: var(--color-secondary);
   border-radius: 10px;
 }

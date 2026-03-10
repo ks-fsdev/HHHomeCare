@@ -2,15 +2,13 @@
 import { motion } from "framer-motion";
 import { Search, MapPin, Activity } from "lucide-react";
 
-export default function LuxuryHero() {
+export default function Hero() {
   return (
     <section className="relative w-full bg-[#F0F7F7] py-24 lg:py-32 overflow-hidden">
-
       <div className="absolute top-0 right-0 w-1/3 h-full bg-[#0D4D4D]/5 rounded-l-[100px] -z-10" />
 
       <div className="max-w-7xl mx-auto px-8">
         <div className="max-w-3xl">
-
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -63,7 +61,7 @@ export default function LuxuryHero() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="w-full md:w-auto bg-[#0D4D4D] text-white px-10 py-3 rounded-2xl font-bold hover:bg-[#083636] transition-all active:scale-95">
+              className="find-button">
               Find Care
             </motion.button>
           </motion.div>
