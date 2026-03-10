@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function LuxuryHeader() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const pathname = usePathname();
 
   return (
@@ -76,7 +76,7 @@ export default function LuxuryHeader() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="bg-primary cursor-pointer text-white px-8 py-3.5 rounded-full text-sm font-bold shadow-[0_10px_30px_rgba(13,77,77,0.2)]">
-            {!isLoggedIn ? "Get Started" : "Check Calender"}
+            {!isLoggedIn ? "Get Started" : "Check Calendar"}
           </motion.button>
         </div>
       </div>

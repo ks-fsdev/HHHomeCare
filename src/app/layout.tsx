@@ -1,5 +1,4 @@
 import Header from "@/app/components/Header";
-
 import "./globals.css";
 
 export default function RootLayout({
@@ -8,10 +7,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" suppressHydrationWarning>
+      <body className="antialiased">
         <Header />
-        {children}
+
+        <main>{children}</main>
       </body>
     </html>
   );
