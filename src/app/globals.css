@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #0d4d4d;
+  --secondary: #097d7d;
+  --background: #f0f7f7;
+  --foreground: #011627;
+  --border-muted: #e0eeee;
+}
+
+@layer base {
+  body {
+    @apply bg-[var(--background)] text-[var(--foreground)] antialiased;
+    margin: 0;
+    padding: 0;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply max-w-7xl mx-auto px-6 md:px-8 py-16 lg:py-24;
+  }
+
+  .btn-primary {
+    @apply bg-[var(--primary)] text-white px-8 py-4 rounded-2xl font-bold 
+           hover:bg-[#083636] transition-all active:scale-95 shadow-lg shadow-[#0D4D4D]/20;
+  }
+}
+
+@utility basic-padding {
+  @apply max-w-7xl mx-auto px-8;
+}
+
+@utility flexing-between {
+  @apply flex items-center justify-between;
+}
+
+@utility flexing-center {
+  @apply flex items-center justify-center;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+  border-radius: 10px;
+}

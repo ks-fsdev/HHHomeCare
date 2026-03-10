@@ -1,3 +1,4 @@
+import HomeDisplay from "@/app/components/HomeDisplay";
 import { connectDB } from "../lib/db";
 
 export default async function Home() {
@@ -5,8 +6,8 @@ export default async function Home() {
   await connectDB();
 
   return (
-    <main className="p-10">
-      <h1>Page is live..</h1>
+    <main>
+      <HomeDisplay />
     </main>
   );
 }
