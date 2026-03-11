@@ -67,7 +67,9 @@ export default function LuxuryHeader() {
 
         <div className="flex items-center gap-8">
           {!isLoggedIn && (
-            <Link href='/login' className="hidden cursor-pointer sm:block text-sm font-bold text-[#0D4D4D] hover:opacity-60 transition-opacity">
+            <Link
+              href="/login"
+              className="hidden cursor-pointer sm:block text-sm font-bold text-[#0D4D4D] hover:opacity-60 transition-opacity">
               Doctor Log in
             </Link>
           )}
@@ -75,7 +77,8 @@ export default function LuxuryHeader() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-primary cursor-pointer text-white px-8 py-3.5 rounded-full text-sm font-bold shadow-[0_10px_30px_rgba(13,77,77,0.2)]">
+            className="bg-primary cursor-pointer text-white px-8 py-3.5 rounded-full text-sm font-bold shadow-[0_10px_30px_rgba(13,77,77,0.2)]"
+            suppressHydrationWarning>
             {!isLoggedIn ? "Get Started" : "Check Calendar"}
           </motion.button>
         </div>
