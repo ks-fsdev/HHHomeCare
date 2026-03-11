@@ -3,6 +3,7 @@ import InputField from "./Input";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import Loader from "./Loader";
 
 interface AuthFormProps {
   type: "login" | "register";
@@ -19,7 +20,7 @@ export default function AuthForm({ type, onSubmit }: AuthFormProps) {
 
     try {
       const formData = new FormData(e.currentTarget);
-      await onSubmit(formData); // Execute the parent's logic
+      await onSubmit(formData);
     } catch (error) {
       console.error(error);
     } finally {
@@ -27,6 +28,7 @@ export default function AuthForm({ type, onSubmit }: AuthFormProps) {
     }
   };
 
+  if (isLoading) return <Loader />;
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -105,7 +107,7 @@ export default function AuthForm({ type, onSubmit }: AuthFormProps) {
           type="submit"
           disabled={isLoading}
           className="w-full bg-primary text-white py-3 rounded-xl font-bold hover:bg-secondary transition-all active:scale-95 mt-4 shadow-lg shadow-primary/20 cursor-pointer disabled:opacity-70">
-          {isLoading ? "Processing..." : isLogin ? "Sign In" : "Sign Up"}
+          {isLogin ? "Sign In" : "Sign Up"}
         </button>
       </form>
 
