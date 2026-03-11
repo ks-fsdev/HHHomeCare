@@ -2,16 +2,15 @@
 import InputField from "./Input";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface AuthFormProps {
   type: "login" | "register";
+  onSubmit: (formData: FormData) => Promise<void>;
 }
 
-export default function AuthForm({ type }: AuthFormProps) {
+export default function AuthForm({ type, onSubmit }: AuthFormProps) {
   const isLogin = type === "login";
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
@@ -20,31 +19,9 @@ export default function AuthForm({ type }: AuthFormProps) {
 
     try {
       const formData = new FormData(e.currentTarget);
-
-      const endpont = isLogin ? "/api/login" : "/api/register";
-
-      const options: RequestInit = isLogin
-        ? {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(Object.fromEntries(formData)),
-          }
-        : {
-            method: "POST",
-            body: formData,
-          };
-
-      const res = await fetch(endpont, options);
-
-      const result = await res.json();
-
-      if (result.success) {
-        console.log(`${type} Successful:`, result.data);
-        router.push("/");
-      } else {
-        alert(result.error || "Something went wrong.");
-      }
+      await onSubmit(formData); // Execute the parent's logic
     } catch (error) {
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
@@ -85,7 +62,7 @@ export default function AuthForm({ type }: AuthFormProps) {
                 label="Specialization"
                 name="specialization"
                 type="text"
-                placeholder="Cardiologist, Pediatrician, etc."
+                placeholder="Cardiologist, etc."
               />
               <InputField
                 label="License Number"
@@ -126,8 +103,9 @@ export default function AuthForm({ type }: AuthFormProps) {
 
         <button
           type="submit"
-          className="w-full bg-primary text-white py-3 rounded-xl font-bold hover:bg-secondary transition-all active:scale-95 mt-4 shadow-lg shadow-primary/20 cursor-pointer">
-          {isLogin ? "Sign In" : "Sign Up"}
+          disabled={isLoading}
+          className="w-full bg-primary text-white py-3 rounded-xl font-bold hover:bg-secondary transition-all active:scale-95 mt-4 shadow-lg shadow-primary/20 cursor-pointer disabled:opacity-70">
+          {isLoading ? "Processing..." : isLogin ? "Sign In" : "Sign Up"}
         </button>
       </form>
 

@@ -14,13 +14,13 @@ export async function POST(req: Request) {
     // * getting raw password
     const rawPassword = formData.get("password") as string;
 
-    if (!rawPassword) {
+    if (!rawPassword || typeof rawPassword !== "string") {
       return NextResponse.json(
         {
           success: false,
           error: "password is missing",
         },
-        { status: 404 },
+        { status: 400 },
       );
     }
 
