@@ -1,5 +1,6 @@
 "use client";
 import AuthForm from "@/app/components/AuthForm";
+import BackButton from "@/app/components/BackButton";
 import { useRouter } from "next/navigation";
 
 export default function Login() {
@@ -23,8 +24,11 @@ export default function Login() {
   };
 
   return (
-    <div className="w-full h-screen flex items-center justify-center">
-      <AuthForm type="login" onSubmit={handleLoginSubmit} />
-    </div>
+    <>
+      <BackButton />
+      <div className="w-full h-screen flex items-center justify-center">
+        <AuthForm type="login" onSubmit={handleLoginSubmit} />
+      </div>
+    </>
   );
 }

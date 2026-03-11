@@ -4,7 +4,7 @@ export default function GlobalLoading() {
       <div className="flex flex-col items-center gap-4">
         <div className="h-16 w-16 border-4 border-[#0D4D4D] border-t-transparent rounded-full animate-spin"></div>
         <h2 className="text-[#0D4D4D] font-black tracking-tighter text-xl animate-pulse">
-          Heart Healing HomeCare
+          Health Healing HomeCare
         </h2>
 
         <p className="text-sm text-gray-500 mb-8">Please Wait...</p>

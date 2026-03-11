@@ -1,5 +1,6 @@
 "use client";
 import AuthForm from "@/app/components/AuthForm";
+import BackButton from "@/app/components/BackButton";
 import { useRouter } from "next/navigation";
 
 export default function Register() {
@@ -22,8 +23,11 @@ export default function Register() {
   };
 
   return (
-    <div className="w-full h-screen flex items-center justify-center">
-      <AuthForm type="register" onSubmit={handleRegisterSubmit} />
-    </div>
+    <>
+      <BackButton />
+      <div className="w-full h-screen flex items-center justify-center">
+        <AuthForm type="register" onSubmit={handleRegisterSubmit} />
+      </div>
+    </>
   );
 }

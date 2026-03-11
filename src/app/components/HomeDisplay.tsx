@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
-import { Search, MapPin, Activity } from "lucide-react";
+import { CheckCircle2, Globe, Rocket } from "lucide-react";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -13,9 +14,9 @@ export default function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-[#E0EEEE] mb-8">
-            <Activity size={16} className="text-[#097d7d]" />
+            <CheckCircle2 size={16} className="text-[#097d7d]" />
             <span className="text-xs font-bold text-[#0D4D4D] uppercase tracking-widest">
-              Top-Tier Medical Network
+              Connect to verified patients
             </span>
           </motion.div>
 
@@ -24,8 +25,8 @@ export default function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
             className="text-6xl lg:text-7xl font-black text-[#0D4D4D] leading-[1.1] tracking-tighter mb-8">
-            Premium care for <br />
-            <span className="text-[#097d7d]">extraordinary</span> lives.
+            Allow your practice <br />
+            to reach <span className="text-[#097d7d]">needy</span> patients.
           </motion.h1>
 
           <motion.p
@@ -33,8 +34,9 @@ export default function Hero() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
             className="text-lg text-[#445555] max-w-xl mb-12 leading-relaxed">
-            Access the world's most elite doctors and wellness programs, right
-            from the comfort of your home. Search for your nearest doctor now.
+            Stop chasing leads. Integrate your services into the world's most
+            exclusive medical ecosystem and find the patients who are looking
+            for you.
           </motion.p>
 
           <motion.div
@@ -43,27 +45,29 @@ export default function Hero() {
             transition={{ delay: 0.6, type: "spring", stiffness: 100 }}
             className="flex flex-col md:flex-row items-center bg-white p-2 px-4 rounded-3xl shadow-[0_20px_50px_rgba(13,77,77,0.1)] border border-[#E0EEEE]">
             <div className="flex items-center flex-1 px-6 py-4 border-b md:border-b-0 md:border-r border-[#F0F7F7]">
-              <MapPin className="text-[#097d7d] mr-3" size={20} />
+              <Globe className="text-[#097d7d] mr-3" size={20} />
               <input
                 type="text"
-                placeholder="Your Location"
+                placeholder="Business Email"
                 className="w-full outline-none text-[#0D4D4D] font-medium placeholder:text-gray-300"
               />
             </div>
             <div className="flex items-center flex-[2] px-6 py-4">
-              <Search className="text-[#097d7d] mr-3" size={20} />
+              <Rocket className="text-[#097d7d] mr-3" size={20} />
               <input
                 type="text"
-                placeholder="Search doctors, specialities, or symptoms..."
+                placeholder="Medical License / Speciality"
                 className="w-full outline-none text-[#0D4D4D] font-medium placeholder:text-gray-300"
               />
             </div>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="find-button">
-              Find Care
-            </motion.button>
+            <Link href="/register" className="text-white">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-[#097d7d] text-white px-8 py-4 rounded-2xl font-bold hover:bg-[#0D4D4D] cursor-pointer transition-all whitespace-nowrap">
+                Apply to Join
+              </motion.button>
+            </Link>
           </motion.div>
         </div>
       </div>

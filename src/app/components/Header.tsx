@@ -22,7 +22,7 @@ export default function LuxuryHeader() {
             </span>
           </div>
           <span className=" text-2xl font-black text-primary tracking-tighter">
-            Heart Healing <span className="text-secondary">Homecare</span>
+            Health Healing <span className="text-secondary">Homecare</span>
           </span>
         </Link>
 
