@@ -67,9 +67,9 @@ export default function LuxuryHeader() {
 
         <div className="flex items-center gap-8">
           {!isLoggedIn && (
-            <button className="hidden cursor-pointer sm:block text-sm font-bold text-[#0D4D4D] hover:opacity-60 transition-opacity">
+            <Link href='/login' className="hidden cursor-pointer sm:block text-sm font-bold text-[#0D4D4D] hover:opacity-60 transition-opacity">
               Doctor Log in
-            </button>
+            </Link>
           )}
 
           <motion.button

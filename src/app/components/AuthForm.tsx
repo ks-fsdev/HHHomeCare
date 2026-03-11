@@ -2,6 +2,8 @@
 import InputField from "./Input";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 interface AuthFormProps {
   type: "login" | "register";
@@ -9,14 +11,43 @@ interface AuthFormProps {
 
 export default function AuthForm({ type }: AuthFormProps) {
   const isLogin = type === "login";
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
+    setIsLoading(true);
 
-    // * will add backend later
-    console.log(`Executing ${type}...`, data);
+    try {
+      const formData = new FormData(e.currentTarget);
+
+      const endpont = isLogin ? "/api/login" : "/api/register";
+
+      const options: RequestInit = isLogin
+        ? {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(Object.fromEntries(formData)),
+          }
+        : {
+            method: "POST",
+            body: formData,
+          };
+
+      const res = await fetch(endpont, options);
+
+      const result = await res.json();
+
+      if (result.success) {
+        console.log(`${type} Successful:`, result.data);
+        router.push("/");
+      } else {
+        alert(result.error || "Something went wrong.");
+      }
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -49,26 +80,40 @@ export default function AuthForm({ type }: AuthFormProps) {
               type="tel"
               placeholder="+91 XXXXX XXXXX"
             />
-            <InputField
-              label="Specialization"
-              name="specialization"
-              type="text"
-              placeholder="Cardiologist, Pediatrician, etc."
-            />
-            <InputField
-              label="License Number"
-              name="licenseNumber"
-              type="text"
-              placeholder="MD-XXXXXXX"
-              required
-            />
+            <div className="md:flex gap-3">
+              <InputField
+                label="Specialization"
+                name="specialization"
+                type="text"
+                placeholder="Cardiologist, Pediatrician, etc."
+              />
+              <InputField
+                label="License Number"
+                name="licenseNumber"
+                type="text"
+                placeholder="MD-XXXXXXX"
+                required
+              />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label className="text-sm font-bold text-primary">
+                Display Picture
+              </label>
+              <input
+                type="file"
+                name="displayPicture"
+                accept="image/*"
+                className="text-xs file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-primary file:text-white cursor-pointer"
+              />
+            </div>
           </>
         )}
         <InputField
           label="Email Address"
           name="email"
           type="email"
-          placeholder="doctor@elitecare.com"
+          placeholder="doctor@gmail.com"
           required
         />
         <InputField

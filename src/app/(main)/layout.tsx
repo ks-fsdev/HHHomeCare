@@ -1,18 +1,15 @@
 import Header from "@/app/components/Header";
 import "@/app/globals.css";
 
-export default function RootLayout({
+export default function MainLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="antialiased">
-        <Header />
-
-        <main>{children}</main>
-      </body>
-    </html>
+    <>
+      <Header />
+      <main>{children}</main>
+    </>
   );
 }
