@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Doctor from "@/models/Doctor";
 import { put } from "@vercel/blob";
+import bcrypt from "bcryptjs";
 
 export async function POST(req: Request) {
   try {
@@ -9,6 +10,22 @@ export async function POST(req: Request) {
 
     // * parsing form data
     const formData = await req.formData();
+
+    // * getting raw password
+    const rawPassword = formData.get("password") as string;
+
+    if (!rawPassword) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "password is missing",
+        },
+        { status: 404 },
+      );
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(rawPassword, salt);
 
     const file = formData.get("displayPicture") as File | null;
     let displayPictureUrl = "";
@@ -23,6 +40,7 @@ export async function POST(req: Request) {
     const doctorData = {
       name: formData.get("name"),
       email: formData.get("email"),
+      password: hashedPassword,
       phone: formData.get("phone"),
       licenseNumber: formData.get("licenseNumber"),
       specialization: formData.get("specialization"),
@@ -31,8 +49,11 @@ export async function POST(req: Request) {
 
     const newDoctor = await Doctor.create(doctorData);
 
+    const sanitizedDoctor = newDoctor.toObject();
+    delete sanitizedDoctor.password;
+
     return NextResponse.json(
-      { success: true, data: newDoctor },
+      { success: true, data: sanitizedDoctor },
       { status: 201 },
     );
   } catch (error: any) {
